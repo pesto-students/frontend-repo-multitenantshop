@@ -1,13 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { useDelete } from "../../../../../utils/useRequest";
 import API_PATHS from "../../../tenantApiConfig";
+import "react-toastify/dist/ReactToastify.css";
+import { notifySuccess } from "../../../../../utils/utils";
 
 const Products = () => {
   const { allProducts } = useOutletContext();
+  const [productList, setProductList] = useState(allProducts);
   const navigate = useNavigate();
 
-  const { loading, error, data, executeApiCall } = useDelete();
+  const { loading, executeApiCall } = useDelete();
 
   const handleEdit = (productId) => {
     navigate(`/store/products/edit/${productId}`);
@@ -18,8 +21,12 @@ const Products = () => {
       const response = await executeApiCall(
         API_PATHS.PRODUCT_DELETE_ONE(productId)
       );
-    } catch (err) {
-    }
+      if (response) {
+        setProductList((prev) => prev.filter((_) => _._id !== productId));
+        notifySuccess("Product deleted successfully");
+        navigate("/dashboard/store-products");
+      }
+    } catch (err) {}
   };
 
   const routeToAddProducts = () => {
@@ -34,9 +41,9 @@ const Products = () => {
           Add more products
         </button>
       </header>
-      <p className="color-secondary">Total Products: {allProducts.length}</p>
+      <p className="color-secondary">Total Products: {productList.length}</p>
       <div className="product-grid">
-        {allProducts.map((product) => (
+        {productList.map((product) => (
           <div key={product._id} className="product-card">
             <img
               src={product.images[0]}

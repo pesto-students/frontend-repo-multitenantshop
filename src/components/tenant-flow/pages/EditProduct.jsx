@@ -4,6 +4,7 @@ import { TENANT_EDIT_PRODUCT_CONFIG } from "../../../utils/constants";
 
 import { useSelector } from "react-redux";
 import { useGet, usePut } from "../../../utils/useRequest";
+import { notifySuccess } from "../../../utils/utils";
 import Loader from "../../Loader";
 import API_PATHS from "../tenantApiConfig";
 import ColorPicker from "./ColorPicker";
@@ -12,7 +13,6 @@ const EditProducts = () => {
   const navigate = useNavigate();
   const [colorValues, setColorValues] = useState([]);
   const { storeId } = useSelector((state) => state.store);
-  const { tenant } = useSelector((state) => state.auth);
   const productImagesFile = useRef([]);
   const [isProductEdited, setIsProductEdited] = useState(false);
 
@@ -74,7 +74,7 @@ const EditProducts = () => {
     }
 
     const response = await executeApiCall(
-      API_PATHS.PRODUCT_UPDATE(storeId, productId),
+      API_PATHS.PRODUCT_UPDATE(storeId, productData.productId),
       payload,
       {
         "Content-Type": "multipart/form-data",
@@ -82,183 +82,169 @@ const EditProducts = () => {
     );
 
     if (response) {
-      setIsProductEdited(true);
-      setTimeout(() => {
-        setIsProductEdited(false);
-      }, 800);
+      notifySuccess("Edited product saved successfully");
     }
   };
 
-  if (isFetching) {
+  if (isFetching || loading) {
     return <Loader />;
   }
 
   return (
     <main className="page product-page">
-      {!isProductEdited ? (
-        <>
-          <div className="flex header">
-            <h2 className="heading-2 color-primary">
-              {TENANT_EDIT_PRODUCT_CONFIG.heading}
-            </h2>
-            <p
-              className="color-secondary add-product-description"
-              dangerouslySetInnerHTML={{
-                __html: TENANT_EDIT_PRODUCT_CONFIG.description,
-              }}
-            ></p>
-          </div>
+      <>
+        <div className="flex header">
+          <h2 className="heading-2 color-primary">
+            {TENANT_EDIT_PRODUCT_CONFIG.heading}
+          </h2>
+          <p
+            className="color-secondary add-product-description"
+            dangerouslySetInnerHTML={{
+              __html: TENANT_EDIT_PRODUCT_CONFIG.description,
+            }}
+          ></p>
+        </div>
 
-          {!isFetching && productData && (
-            <form onSubmit={handleProductAddition} className="form-container">
-              <div className="form-group">
-                <div className="form-fields">
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">Product name:</span>
-                      <input
-                        required
-                        type="text"
-                        defaultValue={productData.name}
-                        name="productName"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">Category:</span>
-                      <input
-                        required
-                        type="text"
-                        defaultValue={productData.category}
-                        name="productCategory"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">Sub-category:</span>
-                      <input
-                        required
-                        type="text"
-                        defaultValue={productData.subcategory}
-                        name="productSubCategory"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">Price:</span>
-                      <input
-                        required
-                        type="number"
-                        defaultValue={productData.price}
-                        name="productPrice"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">Quantity:</span>
-                      <input
-                        required
-                        type="number"
-                        defaultValue={productData.quantityAvailable}
-                        name="productQuantity"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary size-option">
-                        <span>Size Options:</span>
-                        <span>
-                          (Provide comma separated e.g. S, M, L, XL or 28, 32)
-                        </span>
-                      </span>
-                      <input
-                        required
-                        type="text"
-                        defaultValue={productData.sizeOptions}
-                        name="productSize"
-                      />
-                    </label>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary color-picker-label">
-                        Color:
-                      </span>
-                    </label>
-                    <ColorPicker
-                      colorValue={colorValues}
-                      setColorValues={setColorValues}
+        {!isFetching && productData && (
+          <form onSubmit={handleProductAddition} className="form-container">
+            <div className="form-group">
+              <div className="form-fields">
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">Product name:</span>
+                    <input
+                      required
+                      type="text"
+                      defaultValue={productData.name}
+                      name="productName"
                     />
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">
-                        Upload images for all colors:
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">Category:</span>
+                    <input
+                      required
+                      type="text"
+                      defaultValue={productData.category}
+                      name="productCategory"
+                    />
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">Sub-category:</span>
+                    <input
+                      required
+                      type="text"
+                      defaultValue={productData.subcategory}
+                      name="productSubCategory"
+                    />
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">Price:</span>
+                    <input
+                      required
+                      type="number"
+                      defaultValue={productData.price}
+                      name="productPrice"
+                    />
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">Quantity:</span>
+                    <input
+                      required
+                      type="number"
+                      defaultValue={productData.quantityAvailable}
+                      name="productQuantity"
+                    />
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary size-option">
+                      <span>Size Options:</span>
+                      <span>
+                        (Provide comma separated e.g. S, M, L, XL or 28, 32)
                       </span>
-                      <input
-                        ref={productImagesFile}
-                        type="file"
-                        accept="png"
-                        name="productImages"
-                        multiple
+                    </span>
+                    <input
+                      required
+                      type="text"
+                      defaultValue={productData.sizeOptions}
+                      name="productSize"
+                    />
+                  </label>
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary color-picker-label">
+                      Color:
+                    </span>
+                  </label>
+                  <ColorPicker
+                    colorValue={colorValues}
+                    setColorValues={setColorValues}
+                  />
+                </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">
+                      Upload images for all colors:
+                    </span>
+                    <input
+                      ref={productImagesFile}
+                      type="file"
+                      accept=".png"
+                      name="productImages"
+                      multiple
+                    />
+                  </label>
+                  <div className="image-container">
+                    {productData.images.map((image, index) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`product-img-${index}`}
+                        className="display-image"
                       />
-                    </label>
-                    <div className="image-container">
-                      {productData.images.map((image, index) => (
-                        <img
-                          key={index}
-                          src={image}
-                          alt={`product-img-${index}`}
-                          className="display-image"
-                        />
-                      ))}
-                    </div>
-                  </div>
-                  <div className="form-input">
-                    <label>
-                      <span className="color-secondary">
-                        Product description:
-                      </span>
-                      <textarea
-                        rows={6}
-                        type="text"
-                        name="productDescription"
-                        defaultValue={productData.description}
-                      />
-                    </label>
+                    ))}
                   </div>
                 </div>
+                <div className="form-input">
+                  <label>
+                    <span className="color-secondary">
+                      Product description:
+                    </span>
+                    <textarea
+                      rows={6}
+                      type="text"
+                      name="productDescription"
+                      defaultValue={productData.description}
+                    />
+                  </label>
+                </div>
               </div>
-              <div className="btn-group">
-                <button
-                  type="button"
-                  onClick={routeToUserDashboard}
-                  className="btn btn-secondary-outline"
-                >
-                  {TENANT_EDIT_PRODUCT_CONFIG["go-to-dashboard-btn"]}
-                </button>
-                <button type="submit" className="btn btn-primary">
-                  {TENANT_EDIT_PRODUCT_CONFIG["submit-btn"]}
-                </button>
-              </div>
-            </form>
-          )}
-        </>
-      ) : (
-        <div className="product-add-confirmation">
-          <span className="product-addition-icon material-symbols-outlined">
-            check_circle
-          </span>
-          <span className="heading-1 poppins-bold product-addition-message">
-            {TENANT_EDIT_PRODUCT_CONFIG["product-edited-success-message"]}
-          </span>
-        </div>
-      )}
+            </div>
+            <div className="btn-group">
+              <button
+                type="button"
+                onClick={routeToUserDashboard}
+                className="btn btn-secondary-outline"
+              >
+                {TENANT_EDIT_PRODUCT_CONFIG["go-to-dashboard-btn"]}
+              </button>
+              <button type="submit" className="btn btn-primary">
+                {TENANT_EDIT_PRODUCT_CONFIG["submit-btn"]}
+              </button>
+            </div>
+          </form>
+        )}
+      </>
     </main>
   );
 };

@@ -1,6 +1,9 @@
 import { Provider } from "react-redux";
 import Layout from "./components/tenant-flow/Layout";
+import log from "loglevel";
 // import Layout from "./components/user-flow/Layout";
+
+log.setLevel("info");
 
 import {
   createBrowserRouter,

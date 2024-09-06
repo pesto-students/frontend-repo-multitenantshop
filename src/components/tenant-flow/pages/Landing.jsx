@@ -4,10 +4,12 @@ import {
   APP_NAME_REGULAR,
   TENANT_LANDING_CONFIG,
 } from "../../../utils/constants";
+import log from "loglevel";
 
 const Landing = () => {
   const navigate = useNavigate();
 
+  log.info("Landing Page rendered");
   const routeToUserRegistration = () => {
     navigate("/register");
   };

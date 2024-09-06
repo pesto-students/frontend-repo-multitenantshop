@@ -6,7 +6,7 @@ import { usePost } from "../../../utils/useRequest";
 import { logout } from "../store/features/authSlice";
 import { clearStore } from "../store/features/storeSlice";
 import API_PATHS from "../tenantApiConfig";
-import shopHiveLogo from "../../../assets/shopHiveLogo.png"
+import shopHiveLogo from "../../../assets/shopHiveLogo.png";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -17,7 +17,7 @@ const Navbar = () => {
   const isTenantRegistration = location?.pathname === "/register";
   const isLandingPage = location?.pathname === "/";
 
-  const { loading, error, data, executeApiCall } = usePost();
+  const { executeApiCall } = usePost();
 
   const routeToHome = () => {
     logoutTenant();
@@ -36,7 +36,6 @@ const Navbar = () => {
     await executeApiCall(API_PATHS.TENANT_LOGOUT);
     dispatch(logout());
     dispatch(clearStore());
-    routeToTenantLogin();
   };
 
   const renderMainBranding = () => {

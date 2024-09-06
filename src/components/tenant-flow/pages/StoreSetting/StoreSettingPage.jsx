@@ -6,17 +6,15 @@ import { useGet } from "../../../../utils/useRequest";
 import Loader from "../../../Loader";
 import { setStore } from "../../store/features/storeSlice";
 import API_PATHS from "../../tenantApiConfig";
+import log from "loglevel";
 
 const StoreSettingPage = () => {
-  const { tenant } = useSelector((state) => state.auth);
-  const { storeDetail } = useSelector((state) => state.store);
-  console.log(storeDetail);
   const dispatch = useDispatch();
-  const location = useLocation();
-
-  const { tenant: profileData, isAuthenticated: profileLoading } = useSelector(
+  const { tenant, isAuthenticated: profileLoading } = useSelector(
     (state) => state.auth
   );
+
+  log.info(tenant);
 
   const {
     data: storeDetails,
@@ -38,19 +36,22 @@ const StoreSettingPage = () => {
   }, []);
 
   const getStoreDetails = async () => {
-    const storeDetailApi = await executeStoreDetailsApiCall(
-      API_PATHS.STORE_GET(tenant?.tenantId, storeDetail?.storeId)
+    const storeDetailApiResponse = await executeStoreDetailsApiCall(
+      API_PATHS.STORE_GET(tenant?.tenantId, tenant?.storeId)
     );
 
-    if (storeDetailApi) {
-      dispatch(setStore({ storeId: storeDetail?.storeId, storeDetail }));
+    if (storeDetailApiResponse) {
+      dispatch(
+        setStore({
+          storeId: tenant?.storeId,
+          storeDetail: storeDetailApiResponse,
+        })
+      );
     }
   };
 
   const getAllProducts = async () => {
-    await executeAllProductsApiCall(
-      API_PATHS.PRODUCT_GET_ALL(storeDetail?.storeId)
-    );
+    await executeAllProductsApiCall(API_PATHS.PRODUCT_GET_ALL(tenant?.storeId));
   };
 
   if (!profileLoading || storeDetailsLoading || allProductsLoading) {
@@ -67,7 +68,7 @@ const StoreSettingPage = () => {
 
   return (
     <div>
-      {storeDetails && allProducts ? (
+      {storeDetails && allProducts && (
         <main className="page store-setting-page">
           <aside className="side-nav">
             <NavLink
@@ -91,8 +92,6 @@ const StoreSettingPage = () => {
           </aside>
           <Outlet context={{ tenant, storeDetails, allProducts }} />
         </main>
-      ) : (
-        <h1>Loading</h1>
       )}
     </div>
   );

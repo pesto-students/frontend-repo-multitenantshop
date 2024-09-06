@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -107,7 +107,13 @@ const Login = () => {
         </div>
         {error && <p className="poppins-semibold error login-error">{error}</p>}
 
-        <button type="submit" className="btn btn-secondary">
+        <button
+          style={{
+            pointerEvents: loading && "none",
+          }}
+          type="submit"
+          className="btn btn-secondary"
+        >
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>

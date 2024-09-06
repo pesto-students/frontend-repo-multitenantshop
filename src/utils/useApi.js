@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
+import { notifyError, notifySuccess } from "./utils";
 
 const useApi = (method) => {
   const [loading, setLoading] = useState(false);
@@ -19,6 +20,9 @@ const useApi = (method) => {
       setData(response?.data?.data);
       return response?.data?.data;
     } catch (err) {
+      notifyError(
+        err?.response?.data?.message || "Unable to reach to the server"
+      );
       setError(err?.response?.data?.message || "Unable to reach to the server");
     } finally {
       setLoading(false);

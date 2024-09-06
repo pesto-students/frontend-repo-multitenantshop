@@ -66,7 +66,7 @@ const StoreSetup = () => {
       dispatch(
         login({
           ...tenant,
-          storeId: response?.store,
+          storeId: response?.storeId,
         })
       );
       routeToUserProductAddition();
@@ -84,7 +84,7 @@ const StoreSetup = () => {
           dangerouslySetInnerHTML={{
             __html: TENANT_STORE_SETUP_CONFIG["welcome-text"].replace(
               "{username}",
-              "John"
+              tenant?.username
             ),
           }}
         ></p>
@@ -127,7 +127,7 @@ const StoreSetup = () => {
             <div className="form-input">
               <label>
                 <span className="color-secondary">Upload logo:</span>
-                <input required type="file" accept="png" name="storeLogo" />
+                <input required type="file" accept=".png" name="storeLogo" />
               </label>
             </div>
             <div className="form-input">
