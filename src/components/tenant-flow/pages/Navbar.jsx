@@ -6,6 +6,7 @@ import { usePost } from "../../../utils/useRequest";
 import { logout } from "../store/features/authSlice";
 import { clearStore } from "../store/features/storeSlice";
 import API_PATHS from "../tenantApiConfig";
+import shopHiveLogo from "../../../assets/shopHiveLogo.png"
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -41,7 +42,7 @@ const Navbar = () => {
   const renderMainBranding = () => {
     return (
       <>
-        <div className="logo"></div>
+        <img src={shopHiveLogo} className="store-logo" />
         <span
           className="poppins-bold brand-name"
           dangerouslySetInnerHTML={{ __html: APP_NAME_NAVBAR }}
