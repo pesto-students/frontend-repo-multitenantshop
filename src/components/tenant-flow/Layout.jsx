@@ -1,21 +1,14 @@
 import React from "react";
-import "./tenant.scss";
-import GetStarted from "./pages/GetStarted";
-import Landing from "./pages/Landing";
+import { Outlet } from "react-router-dom";
 import Navbar from "./pages/Navbar";
-import StoreSetup from "./pages/StoreSetup";
-import AddProducts from "./pages/AddProducts";
-import StoreSettingPage from "./pages/StoreSetting/StoreSettingPage";
+import "./tenant.scss";
+import Loader from "../Loader";
 
 const Layout = () => {
   return (
     <div className="container">
       <Navbar />
-      {/* <Landing /> */}
-      {/* <GetStarted />  */}
-      {/* <StoreSetup /> */}
-      {/* <AddProducts /> */}
-      <StoreSettingPage />
+      <Outlet />
     </div>
   );
 };

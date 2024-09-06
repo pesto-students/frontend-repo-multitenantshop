@@ -51,10 +51,13 @@ export const TENANT_LANDING_CONFIG = {
 
 // Tenant-Specific Get Started Page Config
 export const TENANT_GET_STARTED_CONFIG = {
-  heading: "Get Started",
-  description:
+  headingRegister: "Get Started",
+  headingLogin: "Login",
+  descriptionRegister:
     "Ready to take your business to the next level? Join thousands of successful entrepreneurs who trust {shopName} to power their online stores. Our platform provides everything you need to create, manage, and grow your e-commerce business.",
   "get-started-login-btn": "Sign in with Google",
+  descriptionLogin:
+    "Welcome back! Access your {shopName} account and continue growing your online store with powerful tools at your fingertips.",
 };
 
 // Tenant-Specific Store Setup Page Config
@@ -77,7 +80,15 @@ export const TENANT_ADD_PRODUCTS_CONFIG = {
     "<p>Remember to select the appropriate category and subcategory (if applicable) for each product. This categorization enhances the browsing experience for your customers, making it easier for them to discover and purchase your items.</p>" +
     "<p>Take your time to provide accurate and enticing descriptions - great product details can significantly boost your sales!</p>",
   "submit-btn": "Add Product",
+  "go-to-dashboard-btn": "View Store",
   "product-added-success-message": "Products added successfully!",
+};
+// Tenant-Specific Add Products Page Config
+export const TENANT_EDIT_PRODUCT_CONFIG = {
+  heading: "Edit product",
+  "submit-btn": "Edit Product",
+  "go-to-dashboard-btn": "View Store",
+  "product-edited-success-message": "Products Edited successfully!",
 };
 
 export const STORE_SETTING_CONFIG = {

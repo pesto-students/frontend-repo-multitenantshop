@@ -1,10 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   APP_NAME_REGULAR,
   TENANT_LANDING_CONFIG,
 } from "../../../utils/constants";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  const routeToUserRegistration = () => {
+    navigate("/register");
+  };
+
   return (
     <div className="landing-page">
       <section className="header-container flex">
@@ -13,7 +20,10 @@ const Landing = () => {
         </h1>
         <p className="color-secondary">{TENANT_LANDING_CONFIG.description}</p>
         <div className="call-to-action">
-          <button className="btn btn-get-started">
+          <button
+            onClick={routeToUserRegistration}
+            className="btn btn-get-started"
+          >
             {TENANT_LANDING_CONFIG["call-to-action-btn-one"]}
           </button>
           <button className="btn btn-learn-more">
