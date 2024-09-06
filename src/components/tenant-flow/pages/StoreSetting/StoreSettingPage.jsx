@@ -9,6 +9,8 @@ import API_PATHS from "../../tenantApiConfig";
 
 const StoreSettingPage = () => {
   const { tenant } = useSelector((state) => state.auth);
+  const { storeDetail } = useSelector((state) => state.store);
+  console.log(storeDetail);
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -36,17 +38,19 @@ const StoreSettingPage = () => {
   }, []);
 
   const getStoreDetails = async () => {
-    const storeDetail = await executeStoreDetailsApiCall(
-      API_PATHS.STORE_GET(tenant?.tenantId, tenant?.storeId)
+    const storeDetailApi = await executeStoreDetailsApiCall(
+      API_PATHS.STORE_GET(tenant?.tenantId, storeDetail?.storeId)
     );
 
-    if (storeDetail) {
-      dispatch(setStore({ storeId: tenant?.storeId, storeDetail }));
+    if (storeDetailApi) {
+      dispatch(setStore({ storeId: storeDetail?.storeId, storeDetail }));
     }
   };
 
   const getAllProducts = async () => {
-    await executeAllProductsApiCall(API_PATHS.PRODUCT_GET_ALL(tenant?.storeId));
+    await executeAllProductsApiCall(
+      API_PATHS.PRODUCT_GET_ALL(storeDetail?.storeId)
+    );
   };
 
   if (!profileLoading || storeDetailsLoading || allProductsLoading) {

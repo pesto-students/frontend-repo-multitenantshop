@@ -6,6 +6,7 @@ import { TENANT_STORE_SETUP_CONFIG } from "../../../utils/constants";
 import { usePost } from "../../../utils/useRequest";
 import { setStore } from "../store/features/storeSlice";
 import API_PATHS from "../tenantApiConfig";
+import { login } from "../store/features/authSlice";
 
 const StoreSetup = () => {
   const navigate = useNavigate();
