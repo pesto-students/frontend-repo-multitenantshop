@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   APP_NAME_REGULAR,
@@ -8,10 +8,16 @@ import log from "loglevel";
 
 const Landing = () => {
   const navigate = useNavigate();
+  const aboutSectionRef = useRef(null);
 
-  log.info("Landing Page rendered");
   const routeToUserRegistration = () => {
     navigate("/register");
+  };
+
+  const scrollToSection = () => {
+    if (aboutSectionRef.current) {
+      aboutSectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -28,12 +34,12 @@ const Landing = () => {
           >
             {TENANT_LANDING_CONFIG["call-to-action-btn-one"]}
           </button>
-          <button className="btn btn-learn-more">
+          <button onClick={scrollToSection} className="btn btn-learn-more">
             {TENANT_LANDING_CONFIG["call-to-action-btn-two"]}
           </button>
         </div>
       </section>
-      <section className="about-container flex">
+      <section ref={aboutSectionRef} className="about-container flex">
         <h2 className="heading-2 color-primary">
           {TENANT_LANDING_CONFIG["about-heading"]}
         </h2>

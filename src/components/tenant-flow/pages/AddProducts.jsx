@@ -152,7 +152,12 @@ const AddProducts = () => {
               <div className="form-input">
                 <label>
                   <span className="color-secondary">Product description:</span>
-                  <textarea rows={6} type="text" name="productDescription" />
+                  <textarea
+                    required
+                    rows={6}
+                    type="text"
+                    name="productDescription"
+                  />
                 </label>
               </div>
             </div>

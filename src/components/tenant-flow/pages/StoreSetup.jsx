@@ -7,6 +7,7 @@ import { usePost } from "../../../utils/useRequest";
 import { setStore } from "../store/features/storeSlice";
 import API_PATHS from "../tenantApiConfig";
 import { login } from "../store/features/authSlice";
+import { notifySuccess } from "../../../utils/utils";
 
 const StoreSetup = () => {
   const navigate = useNavigate();
@@ -62,6 +63,7 @@ const StoreSetup = () => {
       headers
     );
     if (response) {
+      notifySuccess("Store added successfully!");
       dispatch(setStore({ storeId: response?.storeId, storeDetail: response }));
       dispatch(
         login({

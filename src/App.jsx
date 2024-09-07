@@ -24,6 +24,7 @@ import StoreDetails from "./components/tenant-flow/pages/StoreSetting/components
 import StoreSetup from "./components/tenant-flow/pages/StoreSetup";
 import { tenantStore } from "./components/tenant-flow/store/tenantStore";
 import EditProducts from "./components/tenant-flow/pages/EditProduct";
+import StoreEdit from "./components/tenant-flow/pages/StoreEdit";
 
 // Routes for main domain
 const mainDomainRoutes = createBrowserRouter([
@@ -39,6 +40,14 @@ const mainDomainRoutes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <StoreSetup />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "store/edit/:storeId",
+        element: (
+          <PrivateRoute>
+            <StoreEdit />
           </PrivateRoute>
         ),
       },

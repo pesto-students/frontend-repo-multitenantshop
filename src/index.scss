@@ -161,8 +161,8 @@
 }
 
 .loader {
-  --path: #2f3545;
-  --dot: #5628ee;
+  --path: var(--primary-color-one);
+  --dot: var(--primary-color-two);
   --duration: 3s;
   width: 44px;
   height: 44px;

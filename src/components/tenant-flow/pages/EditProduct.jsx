@@ -14,7 +14,6 @@ const EditProducts = () => {
   const [colorValues, setColorValues] = useState([]);
   const { storeId } = useSelector((state) => state.store);
   const productImagesFile = useRef([]);
-  const [isProductEdited, setIsProductEdited] = useState(false);
 
   const { loading, error, data, executeApiCall } = usePut();
   const {
@@ -40,7 +39,7 @@ const EditProducts = () => {
       }
     }
     getProduct();
-  }, [isProductEdited]);
+  }, []);
 
   const handleProductAddition = async (e) => {
     e.preventDefault();

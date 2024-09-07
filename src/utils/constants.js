@@ -72,6 +72,18 @@ export const TENANT_STORE_SETUP_CONFIG = {
   "submit-store-info": "Submit Store Details",
 };
 
+// Tenant-Specific Store Setup Page Config
+export const TENANT_EDIT_STORE_CONFIG = {
+  heading: "Edit Your Store",
+  "welcome-text":
+    "Hi <span>{username}</span>, update your store details to ensure everything is up-to-date!",
+  "step-one-text": "Step1: Basic Store Information",
+  "step-two-text": "Step2: Store Appearance",
+  "step-three-text": "Step3: Contact Information",
+  "step-four-text": "Step4: Store Policies",
+  "submit-store-info": "Apply Changes",
+};
+
 // Tenant-Specific Add Products Page Config
 export const TENANT_ADD_PRODUCTS_CONFIG = {
   heading: "Add products to your store",
@@ -81,14 +93,12 @@ export const TENANT_ADD_PRODUCTS_CONFIG = {
     "<p>Take your time to provide accurate and enticing descriptions - great product details can significantly boost your sales!</p>",
   "submit-btn": "Add Product",
   "go-to-dashboard-btn": "View Store",
-  "product-added-success-message": "Products added successfully!",
 };
 // Tenant-Specific Add Products Page Config
 export const TENANT_EDIT_PRODUCT_CONFIG = {
   heading: "Edit product",
-  "submit-btn": "Edit Product",
+  "submit-btn": "Apply Changes",
   "go-to-dashboard-btn": "View Store",
-  "product-edited-success-message": "Products Edited successfully!",
 };
 
 export const STORE_SETTING_CONFIG = {
